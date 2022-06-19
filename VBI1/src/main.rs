@@ -28,7 +28,7 @@ fn check_arr(org_arr: & [i32], sub_arr: & [i32]) -> bool {
     return res;
 }
 
-fn ex1(){
+fn ex1cd (){
     let org_arr = [1, 6,3,5,6,8, 6, 11];
     let test_arr = [6,8, 6, 11];
     if check_arr( & org_arr,  & test_arr){
