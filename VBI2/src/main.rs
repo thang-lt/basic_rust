@@ -4,54 +4,53 @@
 
 //Exercise 1
 // Mục đích: giải quyết vấn đề ownership and borrowing không dùng clone()
-fn main() {
-    let mut input :u32 = 20;
-    let x = change_value(10, &mut input);
-    println!("{}", x);
-}
+// fn main() {
+//     let mut input :u32 = 20;
+//     let x = change_value(10, &mut input);
+//     println!("{}", x);
+// }
 
 
 
-fn change_value(input:u32, output: &mut u32) -> u32{
-    if input ==1 {
-        *output = 3;
-    }
-    else {
-        *output = 4;
-    }
+// fn change_value(input:u32, output: &mut u32) -> u32{
+//     if input ==1 {
+//         *output = 3;
+//     }
+//     else {
+//         *output = 4;
+//     }
 
-    *output
-}
+//     *output
+// }
 
 
 //Exercise 2
 // Mục đích: giải quyết vấn đề ownership và borrowing ko dùng clone()
 // Các bạn có thể sửa thêm logic để đúng với mục đichs bài này là liệt kê các số nguyên tố 
-// fn main() {
-//     let mut count: u32 = 1;
-//     let mut num: u64 = 1;
-//     let mut primes: Vec<u64> = Vec::new();
-//     primes.push(2);
+fn main() {
+    let mut count: u32 = 1;
+    let mut num: u64 = 1;
+    let mut primes: Vec<u64> = Vec::new();
 
-//     while count < 10 {
-//         num += 2;
-//         if vector_is_prime(num, primes) {
-//             count += 1;
-//             primes.push(num);
-//         }
-//     }
-//     println!("{:?}", primes);
-// }
+    while count < 20 {
+        num += 1;
+        if vector_is_prime(num) {
+            primes.push(num);
+        }
+        count += 1;
+    }
+    println!("{:?}", primes);
+}
 
-// fn vector_is_prime(num: u64, p: Vec<u64>) -> bool {
-//     for i in p {
-//         if num > i && num % i != 0 {
-//             return false;
-//         }
-//     }
-
-//     true
-// }
+fn vector_is_prime(num: u64) -> bool {
+    for i in 2..(num-1) {
+        if num > i && (num % i) == 0 {
+            println!("False");
+            return false;
+        }
+    }
+    true
+}
 
 
 
