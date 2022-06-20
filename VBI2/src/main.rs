@@ -27,54 +27,53 @@
 //Exercise 2
 // Mục đích: giải quyết vấn đề ownership và borrowing ko dùng clone()
 // Các bạn có thể sửa thêm logic để đúng với mục đichs bài này là liệt kê các số nguyên tố 
-fn main() {
-    let mut count: u32 = 1;
-    let mut num: u64 = 1;
-    let mut primes: Vec<u64> = Vec::new();
+// fn main() {
+//     let mut count: u32 = 1;
+//     let mut num: u64 = 1;
+//     let mut primes: Vec<u64> = Vec::new();
 
-    while count < 20 {
-        num += 1;
-        if vector_is_prime(num) {
-            primes.push(num);
-        }
-        count += 1;
-    }
-    println!("{:?}", primes);
-}
+//     while count < 20 {
+//         num += 1;
+//         if vector_is_prime(num) {
+//             primes.push(num);
+//         }
+//         count += 1;
+//     }
+//     println!("{:?}", primes);
+// }
 
-fn vector_is_prime(num: u64) -> bool {
-    for i in 2..(num-1) {
-        if num > i && (num % i) == 0 {
-            println!("False");
-            return false;
-        }
-    }
-    true
-}
+// fn vector_is_prime(num: u64) -> bool {
+//     for i in 2..(num-1) {
+//         if num > i && (num % i) == 0 {
+//             return false
+//         }
+//     }
+//     true
+// }
 
 
 
 //Exercise 3
 // Mục đích: giải quyết vấn đề ownership and borrowing ko dùng clone()
-// fn main() {
-//     let mut values = vec![10, 11, 12];
-//     let v = &mut values;
+fn main() {
+    let mut values = vec![10, 11, 12];
+    let v = & values;
 
-//     let mut max = 0;
+    let mut max = 0;
     
-//     //for n in &mut values {
-//     for n in v {
-//         max = std::cmp::max(max, *n);
-//     }
+    for n in v {
+        max = std::cmp::max(max, *n);
+    }
 
-//     println!("max is {}", max);
-//     println!("Converting to percentages of maximum value...");
-//     //for n in &mut values {
-//     for n in v {
-//         *n = 100 * (*n) / max;
-//     }
-//     println!("values: {:#?}", values);
-// }
+    println!("max is {}", max);
+    println!("Converting to percentages of maximum value...");
+
+    let v = &mut values;
+    for n in v {
+        *n = 100 * (*n) / max;
+    }
+    println!("values: {:#?}", values);
+}
 
 
 //Exercise 4
