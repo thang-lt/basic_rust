@@ -27,29 +27,31 @@
 //Exercise 2
 // Mục đích: giải quyết vấn đề ownership và borrowing ko dùng clone()
 // Các bạn có thể sửa thêm logic để đúng với mục đichs bài này là liệt kê các số nguyên tố 
-// fn main() {
-//     let mut count: u32 = 1;
-//     let mut num: u64 = 1;
-//     let mut primes: Vec<u64> = Vec::new();
+fn main() {
+    let mut count: u32 = 1;
+    let mut num: u64 = 1;
+    let mut primes: Vec<u64> = Vec::new();
+    primes.push(2);
 
-//     while count < 20 {
-//         num += 1;
-//         if vector_is_prime(num) {
-//             primes.push(num);
-//         }
-//         count += 1;
-//     }
-//     println!("{:?}", primes);
-// }
+    while count < 10 {
+        num += 2;
+        if vector_is_prime(num, &primes) {
+            count += 1;
+            primes.push(num);
+        }
+    }
+    println!("{:?}", primes);
+}
 
-// fn vector_is_prime(num: u64) -> bool {
-//     for i in 2..(num-1) {
-//         if num > i && (num % i) == 0 {
-//             return false
-//         }
-//     }
-//     true
-// }
+fn vector_is_prime(num: u64, p: &Vec<u64>) -> bool {
+    for i in p {
+        if num > *i && num % i == 0 {
+            return false;
+        }
+    }
+
+    true
+}
 
 
 
@@ -79,23 +81,23 @@
 //Exercise 4
 // Mục đích : giải quyết vấn đề ownership và borrowing ko dùng clone()
 // Logic hiện tại đang sai (cho 1 vec -> đảo chiều vector đó)
-fn main(){
-    let mut a = vec![1,2,3,4,5];
-    let b = test(&mut a);
-    println!("Vector sau khai dao : {:?}", b);
-}
+// fn main(){
+//     let mut a = vec![1,2,3,4,5];
+//     let b = test(&mut a);
+//     println!("Vector sau khai dao : {:?}", b);
+// }
 
-pub fn test(a: &mut Vec<u8>) -> Vec<u8> {
-    let mut b:Vec<u8>  = Vec::new();
+// pub fn test(a: &mut Vec<u8>) -> Vec<u8> {
+//     let mut b:Vec<u8>  = Vec::new();
 
-    while let Some(top) = a.pop() {
-        b.push(top);
-    }
+//     while let Some(top) = a.pop() {
+//         b.push(top);
+//     }
 
-    // loop {
-    //     if a.len() == 0 { break; }
-    //     let d = a.pop().unwrap();
-    //     b.push(d);
-    // }
-    b
-}
+//     // loop {
+//     //     if a.len() == 0 { break; }
+//     //     let d = a.pop().unwrap();
+//     //     b.push(d);
+//     // }
+//     b
+// }
