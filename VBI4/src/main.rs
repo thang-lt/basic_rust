@@ -15,28 +15,32 @@
 // Một số kiến thức để làm dc bài này: Trait, Generic Type, Associated type,
 // Gợi ý có sườn như sau:
 
-// #[derive(Debug)]
-// struct Fibonacci {
-//     a: u32,
-//     b: u32,
-// }
+#[derive(Debug)]
+struct Fibonacci {
+    a: u32,
+    b: u32,
+}
 
-// impl Iterator for Fibonacci {
-//     type Item = u32;
+impl Iterator for Fibonacci {
+    type Item = u32;
 
 //     // Trả về số fibonaci tiếp theo dựa trên kiểu dữ liệu struct Fibonacci
-//     fn next(&mut self) -> Option<Self::Item> {
-//         let sum = self.a + self.b;
-//         self.a = self.b;
-//         self.b = sum;
-//         Some(self.a)
-//     }
-// }
+    fn next(&mut self) -> Option<Self::Item> {
+        // let sum = self.a + self.b;
+        // self.a = self.b;
+        // self.b = sum;
+        // Some(self.a)
+        let sum = self.a + self.b;
+        self.a = self.b;
+        self.b = sum;
+        Some(sum)
+    }
+}
 
 // Khởi tạo ban đầu cho Fibonaci: 0, 1
-// fn fibonacci_numbers() -> Fibonacci {
-//     Fibonacci { a: 1, b: 0 }
-// }
+fn fibonacci_numbers() -> Fibonacci {
+    Fibonacci { a: 0, b: 1 }
+}
 
 
 //     Vì struct Fibonacci có implement trait Iterator của Rust nên 
@@ -45,11 +49,11 @@
 // struct Fibonacci có thể duyệt được, 
 // Mỗi lần duyệt sẽ tự động chạy function signature next() trên
 // Nên cần implement hàm next() cho struct Fiboncci.
-// fn main() {
-//     for number in fibonacci_numbers() {
-//         println!("{}", number);
-//     }
-// }
+fn main() {
+    for number in fibonacci_numbers() {
+        println!("{}", number);
+    }
+}
 
 
 // Kết quả :
@@ -75,20 +79,40 @@
 // Bài 2: Lifetime
 // Yêu cầu: Sửa lỗi Lifetime 
 
-use std::fmt;
-struct StrDisplayable<'a>(Vec<&'a str>);
+// use std::fmt;
+// struct StrDisplayable<'a>(Vec<&'a str>);
 
-impl <'a> fmt::Display for StrDisplayable<'a> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        for v in &self.0 {
-            write!(f, "\n{}", v)?;
-        }
-        Ok(())
-    }
-}
+// impl <'a> fmt::Display for StrDisplayable<'a> {
+//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+//         for v in &self.0 {
+//             write!(f, "\n{}", v)?;
+//         }
+//         Ok(())
+//     }
+// }
 
-fn main() {
-        let vec: Vec<&str> = vec!["a","bc","def"];
-        let vec_Foo = StrDisplayable(vec);
-        println!("{}",vec_Foo);
-}
+// fn main() {
+//         let vec: Vec<&str> = vec!["a","bc","def"];
+//         let vec_Foo = StrDisplayable(vec);
+//         println!("{}",vec_Foo);
+// }
+
+
+
+
+
+// struct StrDisplayable <'a>{
+//     data: Vec<&'a str> ,
+// }
+
+// impl <'a> StrDisplayable <'a> {
+//     fn Print_data(&self){
+//         println!("{:?}",self.data)
+//     }
+// }
+
+// fn main() {
+//         let vec: Vec<&str> = vec!["a","bc","def"];
+//         let str1 = StrDisplayable{data:vec};
+//         str1.Print_data();
+// }
