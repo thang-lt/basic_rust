@@ -55,7 +55,8 @@ pub mod pallet {
 		/// Event documentation should end with an array that provides descriptive names for event
 		/// parameters. [something, who]
 		SomethingStored(u32, T::AccountId),
-		SomethingStored2(T::AccountId),
+		RemoveEvent(T::AccountId),
+		SwapEvent(T::AccountId, T::AccountId),
 	}
 
 	// Errors inform users that something went wrong.
@@ -112,12 +113,29 @@ pub mod pallet {
 			// This function will return an error if the extrinsic is not signed.
 			// https://docs.substrate.io/v3/runtime/origins
 			let who = ensure_signed(origin)?;
+			
 
 			// Update storage.
 			<Number<T>>::remove(who.clone());
 
 			// Emit an event.
-			// Self::deposit_event(Event::SomethingStored2( who));
+			Self::deposit_event(Event::RemoveEvent(who));
+			// Return a successful DispatchResultWithPostInfo
+			Ok(())
+		}
+		
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1))]
+		pub fn swap_number_by_account(origin: OriginFor<T>, to_account: T::AccountId) -> DispatchResult {
+			// Check that the extrinsic was signed and get the signer.
+			// This function will return an error if the extrinsic is not signed.
+			// https://docs.substrate.io/v3/runtime/origins
+			let who = ensure_signed(origin)?;
+
+			// Update storage.
+			<Number<T>>::swap(who.clone(), to_account.clone());
+
+			// Emit an event.
+			Self::deposit_event(Event::SwapEvent(who, to_account));
 			// Return a successful DispatchResultWithPostInfo
 			Ok(())
 		}
